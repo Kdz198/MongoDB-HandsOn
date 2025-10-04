@@ -34,10 +34,18 @@ public class MongoDbHandsOnApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        NumberDB numberDB1 = new NumberDB(1);
+        NumberDB numberDB2 = new NumberDB(2);
+        NumberDB numberDB3 = new NumberDB(3);
+        List<NumberDB> numberDBList1 = List.of(numberDB1, numberDB2);
+        List<NumberDB> numberDBList2 = List.of(numberDB2, numberDB3);
+        List<NumberDB> numberDBList3 = List.of(numberDB1, numberDB3);
 
-        Address address1 = new Address( "123 Main St", "HCM");
-        Address address2 = new Address( "456 Elm St", "SG");
-        Address address3 = new Address( "789 Main St", "HN");
+
+
+        Address address1 = new Address( "123 Main St", "HCM",numberDBList1);
+        Address address2 = new Address( "456 Elm St", "SG",numberDBList2);
+        Address address3 = new Address( "789 Main St", "HN",numberDBList3);
 
         List< Address> addressList1 = List.of(address1, address2);
         List< Address> addressList2 = List.of(address2, address3);
@@ -54,6 +62,7 @@ public class MongoDbHandsOnApplication implements CommandLineRunner {
         Student student = studentRepository.findById("002").orElse(null);
         System.out.println(student.getName() + " is majoring in " + student.getMajor());
         System.out.println(student.getAddress().get(0));
+        System.out.println(student.getAddress().get(1).getNumberDB().get(0));
 
 
     }
